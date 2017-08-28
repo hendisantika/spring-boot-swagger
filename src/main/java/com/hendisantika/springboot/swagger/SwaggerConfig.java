@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 "Terms of service",
                 "hendisantika@gmail.com",
                 "License of API",
-                "License URL");
+                "https://swagger.io/docs/");
         return apiInfo;
     }
 }
