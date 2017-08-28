@@ -27,6 +27,12 @@ public class StudentService {
         }
     }
 
+    public List<Student> getAll(){
+        List<Student> studentList = studentDB.entrySet().stream()
+                .map(Map.Entry::getValue).collect(Collectors.toList());
+        return studentList;
+    }
+
     public Student getStudentById(Integer studentId) {
         return studentDB.get(studentId);
     }
