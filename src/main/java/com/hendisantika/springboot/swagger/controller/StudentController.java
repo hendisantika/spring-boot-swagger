@@ -26,6 +26,21 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @ApiOperation(value = "Get All Student", produces = "application/json")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllStudents() {
+        logger.debug("Getting All students ......");
+        List<Student> student = null;
+        try {
+            student = studentService.getAll();
+            logger.debug("Getting All students ...... ::");
+        } catch (Exception ex) {
+            logger.error("Error occurred in searchStudentById >>", ex, ex.getMessage());
+            return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<Object>(student, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "Search Student by studentId", produces = "application/json")
     @RequestMapping(value = "/{studentId}", method = RequestMethod.GET)
     public ResponseEntity<Object> searchStudentById(
