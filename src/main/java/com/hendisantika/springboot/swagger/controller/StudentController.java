@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/students")
-@Api(value = "API to search Student from a Student Repository by different serach parameters",
+@Api(value = "API to search Student from a Student Repository by different search parameters",
         description = "This API provides the capability to search Student from a Student Repository", produces = "application/json")
 public class StudentController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
