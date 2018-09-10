@@ -1,5 +1,6 @@
 package com.hendisantika.springboot.swagger.model;
 
+import lombok.*;
 import org.jfairy.producer.person.Address;
 import org.jfairy.producer.person.Person;
 import org.joda.time.DateTime;
@@ -8,6 +9,11 @@ import org.joda.time.DateTime;
  * Created by hendisantika on 4/24/17.
  */
 
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
     private Integer studentId;
     private Address address;
@@ -39,55 +45,4 @@ public class Student {
         this.companyEmail = p.companyEmail();
     }
 
-    public Integer getStudentId() {
-        return studentId;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Person.Sex getSex() {
-        return sex;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public DateTime getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public String getCompanyEmail() {
-        return companyEmail;
-    }
-
-    public String getNationalIdentityCardNumber() {
-        return nationalIdentityCardNumber;
-    }
-
-    public String getNationalIdentificationNumber() {
-        return nationalIdentificationNumber;
-    }
 }
