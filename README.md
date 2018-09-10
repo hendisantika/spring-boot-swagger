@@ -42,3 +42,5 @@ All the Swagger annotations for documenting the controller are self explanatory.
 Open your browser :
 
 `http://localhost:8080/swagger-ui.html`
+
+![List API Page](img/list.png "List API Page")
