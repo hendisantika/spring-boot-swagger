@@ -1,7 +1,7 @@
 logging:
   level:
     org.springframework.web: ERROR
-    com.tuturself: DEBUG
+    com.hendisantika.springboot.swagger: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
@@ -12,3 +12,7 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
