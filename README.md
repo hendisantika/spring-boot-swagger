@@ -36,8 +36,7 @@ All the Swagger annotations for documenting the controller are self explanatory.
 
 @ApiParam → Narrates the parameter the method is expecting and also tells whether it is mandatory or not.
 
-
-
+Run this project by this command : `mvn clean spring-boot:run`
 
 Open your browser :
 
