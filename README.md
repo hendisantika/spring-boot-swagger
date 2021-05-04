@@ -43,3 +43,9 @@ Open your browser :
 `http://localhost:8080/swagger-ui.html`
 
 ![List API Page](img/list.png "List API Page")
+
+New Swagger Path:
+
+`http://localhost:8080/swagger-ui/index.html`
+
+![List API Page](img/swagger2.png "List API Page")
