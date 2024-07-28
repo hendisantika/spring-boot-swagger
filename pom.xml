@@ -10,7 +10,7 @@
 
 	<name>spring-boot-swagger</name>
 	<description>Demo project for Spring Boot Swagger</description>
-
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
