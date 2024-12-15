@@ -8,11 +8,20 @@ logging:
 file: ./logs/application.log
 spring:
   datasource:
-    url: jdbc:mysql://localhost/swaggerDB?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta&useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:3306/swaggerDB?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta&useSSL=false
+    username: yu7i
+    password: 53cret
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+
+springdoc:
+  api-docs:
+    path: /v3/api-doc
+  swagger-ui:
+    path: /swagger-ui
+application-description: '@project.description@'
+application-version: '@project.version@'

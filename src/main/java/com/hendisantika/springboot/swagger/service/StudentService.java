@@ -1,10 +1,11 @@
 package com.hendisantika.springboot.swagger.service;
 
 import com.hendisantika.springboot.swagger.model.Student;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.jfairy.Fairy;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,16 +15,17 @@ import java.util.stream.Collectors;
  * Created by hendisantika on 4/24/17.
  */
 @Service
+@RequiredArgsConstructor
 public class StudentService {
     private static Map<Integer, Student> studentDB;
-    private Fairy fairy = Fairy.create();
+    private final Fairy fairy = Fairy.create();
 
     @PostConstruct
     public void init() throws Exception {
         studentDB = new HashMap<>();
         for (int i = 0; i < 100; i++) {
             Student student = new Student(i, fairy.person());
-            studentDB.put(new Integer(i), student);
+            studentDB.put(i, student);
         }
     }
 

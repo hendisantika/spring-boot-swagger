@@ -1,39 +1,30 @@
 package com.hendisantika.springboot.swagger;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Created by hendisantika on 4/24/17.
  */
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.hendisantika.springboot.swagger"))
-                .paths(PathSelectors.any())
-                .build().apiInfo(apiInfo());
-    }
-
-    private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(
-                "StudentSearchApplication",
-                "An application to search Student from a Student repository by studentId",
-                "StudentSearchApplication v1",
-                "Terms of service",
-                "hendisantika@gmail.com",
-                "License of API",
-                "https://swagger.io/docs/");
-        return apiInfo;
+    public OpenAPI notifOpenAPI(@Value("${application-description}") String appDescription, @Value("${application" +
+            "-version}") String appVersion) {
+        OpenAPI openAPI = new OpenAPI();
+        openAPI.info(new io.swagger.v3.oas.models.info.Info()
+                .title("Cassandra Service API")
+                .description(appDescription)
+                .version(appVersion)
+                .contact(new io.swagger.v3.oas.models.info.Contact()
+                        .name("Hendi Santika")
+                        .url("https://s.id/hendisantika")
+                        .email("hendisantika@yahoo.co.id"))
+                .termsOfService("TOC")
+                .license(new io.swagger.v3.oas.models.info.License().name("License").url("https://s.id/hendisantika")));
+        return openAPI;
     }
 }

@@ -2,13 +2,21 @@ package com.hendisantika.springboot.swagger.controller;
 
 import com.hendisantika.springboot.swagger.model.Student;
 import com.hendisantika.springboot.swagger.service.StudentService;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,16 +26,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/students")
-@Api(value = "API to search Student from a Student Repository by different search parameters",
-        description = "This API provides the capability to search Student from a Student Repository", produces = "application/json")
+@RequiredArgsConstructor
+@Tag(name = "API to search Student from a Student Repository by different search parameters",
+        description = "This API provides the capability to search Student from a Student Repository")
 public class StudentController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
 
-    @ApiOperation(value = "Get All Student", produces = "application/json")
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @Operation(
+            summary = "Get All Student Data",
+            description = "Get All Student Data.",
+            tags = {"Tutorial"}
+    )
+    @GetMapping(value = "/all")
     public ResponseEntity<Object> getAllStudents() {
         logger.debug("Getting All students ......");
         List<Student> student = null;
@@ -41,30 +53,34 @@ public class StudentController {
         return new ResponseEntity<Object>(student, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Search Student by studentId", produces = "application/json")
-    @RequestMapping(value = "/{studentId}", method = RequestMethod.GET)
+    @Operation(
+            summary = "Search Student by studentId",
+            description = "Search Student by studentId.",
+            tags = {"Tutorial"}
+    )
+    @GetMapping(value = "/{studentId}")
     public ResponseEntity<Object> searchStudentById(
-            @ApiParam(name = "studentId",
-                    value = "The Id of the Student to be viewed",
+            @Parameter(name = "studentId",
+                    description = "The Id of the Student to be viewed",
                     required = true)
             @PathVariable Integer studentId) {
-        logger.debug("Searching for student with studentId ::" + studentId);
+        logger.debug("Searching for student with studentId ::{}", studentId);
         Student student = null;
         try {
             student = studentService.getStudentById(studentId);
             logger.debug("Student found with studentId ::" + studentId);
         } catch (Exception ex) {
             logger.error("Error occurred in searchStudentById >>", ex, ex.getMessage());
-            return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Object>(student, HttpStatus.OK);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Search for all Students whose age is greater than input age", produces = "application/json")
-    @RequestMapping(value = "/greaterThanAge/{age}", method = RequestMethod.GET)
+    @Operation(summary = "Search for all Students whose age is greater than input age")
+    @GetMapping(value = "/greaterThanAge/{age}")
     public ResponseEntity<Object> filterStudentsByAge(
-            @ApiParam(name = "age",
-                    value = "filtering age",
+            @Parameter(name = "age",
+                    description = "filtering age",
                     required = true) @PathVariable Integer age) {
         List<Student> studentList = null;
         try {
@@ -76,38 +92,38 @@ public class StudentController {
         return new ResponseEntity<Object>(studentList, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Search for all Students who are from input city", produces = "application/json")
-    @RequestMapping(value = "/fromCity/{cityName}", method = RequestMethod.GET)
+    @Operation(summary = "Search for all Students who are from input city")
+    @GetMapping(value = "/fromCity/{cityName}")
     public ResponseEntity<Object> filterStudentsByCity(
-            @ApiParam(name = "cityName", value = "filtering city name", required = true)
+            @Parameter(name = "cityName", description = "filtering city name", required = true)
             @PathVariable String cityName) {
         List<Student> studentList = null;
         try {
             studentList = studentService.filterByCity(cityName);
         } catch (Exception ex) {
             logger.error("Error occurred in filterStudentsByCity >>", ex, ex.getMessage());
-            return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Object>(studentList, HttpStatus.OK);
+        return new ResponseEntity<>(studentList, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Search for all students who are from given city and "
-            + "whose age are greater than input age", produces = "application/json")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "schoolId", value = "School Id", required = true, dataType = "String", paramType = "header"),
-            @ApiImplicitParam(name = "age", value = "Age of Student", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "cityName", value = "City of Student", required = true, dataType = "String", paramType = "query") })
-    @RequestMapping(value = "/filterByAgeAndCity", method = RequestMethod.GET)
+    @Operation(summary = "Search for all students who are from given city and "
+            + "whose age are greater than input age")
+    @Parameters({
+            @Parameter(name = "schoolId", description = "School Id", required = true),
+            @Parameter(name = "age", description = "Age of Student", required = true),
+            @Parameter(name = "cityName", description = "City of Student", required = true)})
+    @GetMapping(value = "/filterByAgeAndCity")
     public ResponseEntity<Object> filterStudentsByAgeAndCity(@RequestHeader(name = "schoolId") String userId,
-                                                             @RequestParam Integer age,@RequestParam String cityName) {
+                                                             @RequestParam Integer age, @RequestParam String cityName) {
 
         List<Student> studentList = null;
         try {
             studentList = studentService.filterByAgeAndCity(age, cityName);
         } catch (Exception ex) {
             logger.error("Error occurred in filterStudentsByAgeAndCity >>", ex, ex.getMessage());
-            return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Object>(studentList, HttpStatus.OK);
+        return new ResponseEntity<>(studentList, HttpStatus.OK);
     }
 }
