@@ -1,4 +1,4 @@
-package com.hendisantika.springboot.swagger;
+package com.hendisantika.springboot.swagger.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ public class SwaggerConfig {
             "-version}") String appVersion) {
         OpenAPI openAPI = new OpenAPI();
         openAPI.info(new io.swagger.v3.oas.models.info.Info()
-                .title("Cassandra Service API")
+                .title("Sample Service API")
                 .description(appDescription)
                 .version(appVersion)
                 .contact(new io.swagger.v3.oas.models.info.Contact()

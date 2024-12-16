@@ -1,6 +1,8 @@
 package com.hendisantika.springboot.swagger.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jfairy.producer.person.Address;
 import org.jfairy.producer.person.Person;
 import org.joda.time.DateTime;
@@ -10,8 +12,6 @@ import org.joda.time.DateTime;
  */
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {

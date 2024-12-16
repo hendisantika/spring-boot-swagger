@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/students")
 @RequiredArgsConstructor
-@Tag(name = "API to search Student from a Student Repository by different search parameters",
+@Tag(name = "Student",
         description = "This API provides the capability to search Student from a Student Repository")
 public class StudentController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -36,8 +36,7 @@ public class StudentController {
 
     @Operation(
             summary = "Get All Student Data",
-            description = "Get All Student Data.",
-            tags = {"Tutorial"}
+            description = "Get All Student Data."
     )
     @GetMapping(value = "/all")
     public ResponseEntity<Object> getAllStudents() {
@@ -55,8 +54,7 @@ public class StudentController {
 
     @Operation(
             summary = "Search Student by studentId",
-            description = "Search Student by studentId.",
-            tags = {"Tutorial"}
+            description = "Search Student by studentId."
     )
     @GetMapping(value = "/{studentId}")
     public ResponseEntity<Object> searchStudentById(
